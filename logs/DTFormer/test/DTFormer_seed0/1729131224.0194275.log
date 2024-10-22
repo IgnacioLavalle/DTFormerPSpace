@@ -1,0 +1,110 @@
+2024-10-16 23:13:44,019 - root - INFO - ********** Run 1 starts. **********
+2024-10-16 23:13:44,019 - root - INFO - configuration is Namespace(dataset_name='test', batch_size=32, model_name='DTFormer', gpu=0, sample_neighbor_strategy='recent', time_scaling_factor=1e-06, num_walk_heads=8, num_heads=2, num_layers=2, walk_length=1, time_feat_dim=100, position_feat_dim=172, time_window_mode='fixed_proportion', patch_size=8, channel_embedding_dim=50, max_input_sequence_length=256, learning_rate=0.0001, dropout=0.1, num_epochs=100, optimizer='Adam', weight_decay=0.0, patience=20, val_ratio=0.1, test_ratio=0.1, num_runs=5, test_interval_epochs=10, negative_sample_strategy='random', using_time_feat=False, using_snapshot_feat=True, using_intersect_feat=True, using_snap_counts=True, num_patch_size=3, intersect_mode='sum', device='cpu', seed=0, save_model_name='DTFormer_seed0')
+2024-10-16 23:13:44,248 - root - INFO - model -> Sequential(
+  (0): DTFormer(
+    (time_encoder): TimeEncoder(
+      (w): Linear(in_features=1, out_features=100, bias=True)
+    )
+    (snapshot_encoder): TimeEncoder(
+      (w): Linear(in_features=1, out_features=100, bias=True)
+    )
+    (neighbor_intersect_encoder): NeighborIntersectEncoder(
+      (neighbor_intersect_encode_layer): Sequential(
+        (0): Linear(in_features=1, out_features=50, bias=True)
+        (1): ReLU()
+        (2): Linear(in_features=50, out_features=50, bias=True)
+      )
+    )
+    (projection_layer): ModuleDict(
+      (pre_snapshot): Sequential(
+        (0): Linear(in_features=1, out_features=100, bias=True)
+        (1): ReLU()
+        (2): Linear(in_features=100, out_features=100, bias=True)
+      )
+      (node_1): Linear(in_features=1376, out_features=50, bias=True)
+      (edge_1): Linear(in_features=1376, out_features=50, bias=True)
+      (time_1): Linear(in_features=800, out_features=50, bias=True)
+      (neighbor_intersect_1): Linear(in_features=400, out_features=50, bias=True)
+      (post_snapshot_1): Linear(in_features=800, out_features=50, bias=True)
+      (snap_counts_1): Sequential(
+        (0): Linear(in_features=24, out_features=50, bias=True)
+        (1): ReLU()
+        (2): Linear(in_features=50, out_features=50, bias=True)
+      )
+      (node_2): Linear(in_features=688, out_features=50, bias=True)
+      (edge_2): Linear(in_features=688, out_features=50, bias=True)
+      (time_2): Linear(in_features=400, out_features=50, bias=True)
+      (neighbor_intersect_2): Linear(in_features=200, out_features=50, bias=True)
+      (post_snapshot_2): Linear(in_features=400, out_features=50, bias=True)
+      (snap_counts_2): Sequential(
+        (0): Linear(in_features=12, out_features=50, bias=True)
+        (1): ReLU()
+        (2): Linear(in_features=50, out_features=50, bias=True)
+      )
+      (node_3): Linear(in_features=344, out_features=50, bias=True)
+      (edge_3): Linear(in_features=344, out_features=50, bias=True)
+      (time_3): Linear(in_features=200, out_features=50, bias=True)
+      (neighbor_intersect_3): Linear(in_features=100, out_features=50, bias=True)
+      (post_snapshot_3): Linear(in_features=200, out_features=50, bias=True)
+      (snap_counts_3): Sequential(
+        (0): Linear(in_features=6, out_features=50, bias=True)
+        (1): ReLU()
+        (2): Linear(in_features=50, out_features=50, bias=True)
+      )
+    )
+    (transformers_dict): ModuleDict(
+      (transformers_1): ModuleList(
+        (0-1): 2 x TransformerEncoder(
+          (multi_head_attention): MultiheadAttention(
+            (out_proj): NonDynamicallyQuantizableLinear(in_features=250, out_features=250, bias=True)
+          )
+          (dropout): Dropout(p=0.1, inplace=False)
+          (linear_layers): ModuleList(
+            (0): Linear(in_features=250, out_features=1000, bias=True)
+            (1): Linear(in_features=1000, out_features=250, bias=True)
+          )
+          (norm_layers): ModuleList(
+            (0-1): 2 x LayerNorm((250,), eps=1e-05, elementwise_affine=True)
+          )
+        )
+      )
+      (transformers_2): ModuleList(
+        (0-1): 2 x TransformerEncoder(
+          (multi_head_attention): MultiheadAttention(
+            (out_proj): NonDynamicallyQuantizableLinear(in_features=250, out_features=250, bias=True)
+          )
+          (dropout): Dropout(p=0.1, inplace=False)
+          (linear_layers): ModuleList(
+            (0): Linear(in_features=250, out_features=1000, bias=True)
+            (1): Linear(in_features=1000, out_features=250, bias=True)
+          )
+          (norm_layers): ModuleList(
+            (0-1): 2 x LayerNorm((250,), eps=1e-05, elementwise_affine=True)
+          )
+        )
+      )
+      (transformers_3): ModuleList(
+        (0-1): 2 x TransformerEncoder(
+          (multi_head_attention): MultiheadAttention(
+            (out_proj): NonDynamicallyQuantizableLinear(in_features=250, out_features=250, bias=True)
+          )
+          (dropout): Dropout(p=0.1, inplace=False)
+          (linear_layers): ModuleList(
+            (0): Linear(in_features=250, out_features=1000, bias=True)
+            (1): Linear(in_features=1000, out_features=250, bias=True)
+          )
+          (norm_layers): ModuleList(
+            (0-1): 2 x LayerNorm((250,), eps=1e-05, elementwise_affine=True)
+          )
+        )
+      )
+    )
+    (output_layer): Linear(in_features=750, out_features=172, bias=True)
+  )
+  (1): MergeLayer(
+    (fc1): Linear(in_features=344, out_features=172, bias=True)
+    (fc2): Linear(in_features=172, out_features=1, bias=True)
+    (act): ReLU()
+  )
+)
+2024-10-16 23:13:44,249 - root - INFO - model name: DTFormer, #parameters: 20591940 B, 20109.31640625 KB, 19.638004302978516 MB.

@@ -1,0 +1,164 @@
+2024-10-18 08:47:32,795 - root - INFO - ********** Run 1 starts. **********
+2024-10-18 08:47:32,795 - root - INFO - configuration is Namespace(dataset_name='test', batch_size=200, model_name='DTFormer', gpu=0, sample_neighbor_strategy='recent', time_scaling_factor=1e-06, num_walk_heads=8, num_heads=2, num_layers=2, walk_length=1, time_feat_dim=100, position_feat_dim=172, time_window_mode='fixed_proportion', patch_size=8, channel_embedding_dim=50, max_input_sequence_length=256, learning_rate=0.0001, dropout=0.1, num_epochs=100, optimizer='Adam', weight_decay=0.0, patience=20, val_ratio=0.4, test_ratio=0.4, num_runs=5, test_interval_epochs=10, negative_sample_strategy='random', using_time_feat=False, using_snapshot_feat=True, using_intersect_feat=True, using_snap_counts=True, num_patch_size=3, intersect_mode='sum', device='cpu', seed=0, save_model_name='DTFormer_seed0')
+2024-10-18 08:47:33,033 - root - INFO - model -> Sequential(
+  (0): DTFormer(
+    (time_encoder): TimeEncoder(
+      (w): Linear(in_features=1, out_features=100, bias=True)
+    )
+    (snapshot_encoder): TimeEncoder(
+      (w): Linear(in_features=1, out_features=100, bias=True)
+    )
+    (neighbor_intersect_encoder): NeighborIntersectEncoder(
+      (neighbor_intersect_encode_layer): Sequential(
+        (0): Linear(in_features=1, out_features=50, bias=True)
+        (1): ReLU()
+        (2): Linear(in_features=50, out_features=50, bias=True)
+      )
+    )
+    (projection_layer): ModuleDict(
+      (pre_snapshot): Sequential(
+        (0): Linear(in_features=1, out_features=100, bias=True)
+        (1): ReLU()
+        (2): Linear(in_features=100, out_features=100, bias=True)
+      )
+      (node_1): Linear(in_features=1376, out_features=50, bias=True)
+      (edge_1): Linear(in_features=1376, out_features=50, bias=True)
+      (time_1): Linear(in_features=800, out_features=50, bias=True)
+      (neighbor_intersect_1): Linear(in_features=400, out_features=50, bias=True)
+      (post_snapshot_1): Linear(in_features=800, out_features=50, bias=True)
+      (snap_counts_1): Sequential(
+        (0): Linear(in_features=24, out_features=50, bias=True)
+        (1): ReLU()
+        (2): Linear(in_features=50, out_features=50, bias=True)
+      )
+      (node_2): Linear(in_features=688, out_features=50, bias=True)
+      (edge_2): Linear(in_features=688, out_features=50, bias=True)
+      (time_2): Linear(in_features=400, out_features=50, bias=True)
+      (neighbor_intersect_2): Linear(in_features=200, out_features=50, bias=True)
+      (post_snapshot_2): Linear(in_features=400, out_features=50, bias=True)
+      (snap_counts_2): Sequential(
+        (0): Linear(in_features=12, out_features=50, bias=True)
+        (1): ReLU()
+        (2): Linear(in_features=50, out_features=50, bias=True)
+      )
+      (node_3): Linear(in_features=344, out_features=50, bias=True)
+      (edge_3): Linear(in_features=344, out_features=50, bias=True)
+      (time_3): Linear(in_features=200, out_features=50, bias=True)
+      (neighbor_intersect_3): Linear(in_features=100, out_features=50, bias=True)
+      (post_snapshot_3): Linear(in_features=200, out_features=50, bias=True)
+      (snap_counts_3): Sequential(
+        (0): Linear(in_features=6, out_features=50, bias=True)
+        (1): ReLU()
+        (2): Linear(in_features=50, out_features=50, bias=True)
+      )
+    )
+    (transformers_dict): ModuleDict(
+      (transformers_1): ModuleList(
+        (0-1): 2 x TransformerEncoder(
+          (multi_head_attention): MultiheadAttention(
+            (out_proj): NonDynamicallyQuantizableLinear(in_features=250, out_features=250, bias=True)
+          )
+          (dropout): Dropout(p=0.1, inplace=False)
+          (linear_layers): ModuleList(
+            (0): Linear(in_features=250, out_features=1000, bias=True)
+            (1): Linear(in_features=1000, out_features=250, bias=True)
+          )
+          (norm_layers): ModuleList(
+            (0-1): 2 x LayerNorm((250,), eps=1e-05, elementwise_affine=True)
+          )
+        )
+      )
+      (transformers_2): ModuleList(
+        (0-1): 2 x TransformerEncoder(
+          (multi_head_attention): MultiheadAttention(
+            (out_proj): NonDynamicallyQuantizableLinear(in_features=250, out_features=250, bias=True)
+          )
+          (dropout): Dropout(p=0.1, inplace=False)
+          (linear_layers): ModuleList(
+            (0): Linear(in_features=250, out_features=1000, bias=True)
+            (1): Linear(in_features=1000, out_features=250, bias=True)
+          )
+          (norm_layers): ModuleList(
+            (0-1): 2 x LayerNorm((250,), eps=1e-05, elementwise_affine=True)
+          )
+        )
+      )
+      (transformers_3): ModuleList(
+        (0-1): 2 x TransformerEncoder(
+          (multi_head_attention): MultiheadAttention(
+            (out_proj): NonDynamicallyQuantizableLinear(in_features=250, out_features=250, bias=True)
+          )
+          (dropout): Dropout(p=0.1, inplace=False)
+          (linear_layers): ModuleList(
+            (0): Linear(in_features=250, out_features=1000, bias=True)
+            (1): Linear(in_features=1000, out_features=250, bias=True)
+          )
+          (norm_layers): ModuleList(
+            (0-1): 2 x LayerNorm((250,), eps=1e-05, elementwise_affine=True)
+          )
+        )
+      )
+    )
+    (output_layer): Linear(in_features=750, out_features=172, bias=True)
+  )
+  (1): MergeLayer(
+    (fc1): Linear(in_features=344, out_features=172, bias=True)
+    (fc2): Linear(in_features=172, out_features=1, bias=True)
+    (act): ReLU()
+  )
+)
+2024-10-18 08:47:33,034 - root - INFO - model name: DTFormer, #parameters: 20591940 B, 20109.31640625 KB, 19.638004302978516 MB.
+2024-10-18 12:08:24,820 - root - INFO - Epoch: 1, learning rate: 0.0001, train loss: 0.6934
+2024-10-18 12:08:24,820 - root - INFO - train average_precision, 0.5069
+2024-10-18 12:08:24,821 - root - INFO - train roc_auc, 0.4999
+2024-10-18 12:08:24,821 - root - INFO - validate loss: 3.6961
+2024-10-18 12:08:24,821 - root - INFO - validate average_precision, 0.4417
+2024-10-18 12:08:24,821 - root - INFO - validate roc_auc, 0.4155
+2024-10-18 12:08:24,827 - root - INFO - save model ./saved_models/DTFormer/test/DTFormer_seed0/DTFormer_seed0.pkl
+2024-10-18 15:28:38,625 - root - INFO - Epoch: 2, learning rate: 0.0001, train loss: 0.6933
+2024-10-18 15:28:38,625 - root - INFO - train average_precision, 0.5074
+2024-10-18 15:28:38,626 - root - INFO - train roc_auc, 0.5010
+2024-10-18 15:28:38,626 - root - INFO - validate loss: 1.5393
+2024-10-18 15:28:38,626 - root - INFO - validate average_precision, 0.4570
+2024-10-18 15:28:38,626 - root - INFO - validate roc_auc, 0.4364
+2024-10-18 15:28:38,627 - root - INFO - save model ./saved_models/DTFormer/test/DTFormer_seed0/DTFormer_seed0.pkl
+2024-10-18 18:50:36,733 - root - INFO - Epoch: 3, learning rate: 0.0001, train loss: 0.6933
+2024-10-18 18:50:36,733 - root - INFO - train average_precision, 0.5079
+2024-10-18 18:50:36,733 - root - INFO - train roc_auc, 0.5006
+2024-10-18 18:50:36,734 - root - INFO - validate loss: 0.8952
+2024-10-18 18:50:36,734 - root - INFO - validate average_precision, 0.4697
+2024-10-18 18:50:36,734 - root - INFO - validate roc_auc, 0.4457
+2024-10-18 18:50:36,735 - root - INFO - save model ./saved_models/DTFormer/test/DTFormer_seed0/DTFormer_seed0.pkl
+2024-10-18 22:10:09,747 - root - INFO - Epoch: 4, learning rate: 0.0001, train loss: 0.6932
+2024-10-18 22:10:09,747 - root - INFO - train average_precision, 0.5076
+2024-10-18 22:10:09,748 - root - INFO - train roc_auc, 0.5007
+2024-10-18 22:10:09,748 - root - INFO - validate loss: 0.8681
+2024-10-18 22:10:09,748 - root - INFO - validate average_precision, 0.4654
+2024-10-18 22:10:09,748 - root - INFO - validate roc_auc, 0.4416
+2024-10-19 01:37:57,730 - root - INFO - Epoch: 5, learning rate: 0.0001, train loss: 0.6932
+2024-10-19 01:37:57,731 - root - INFO - train average_precision, 0.5083
+2024-10-19 01:37:57,731 - root - INFO - train roc_auc, 0.5011
+2024-10-19 01:37:57,731 - root - INFO - validate loss: 0.7393
+2024-10-19 01:37:57,732 - root - INFO - validate average_precision, 0.5234
+2024-10-19 01:37:57,732 - root - INFO - validate roc_auc, 0.5147
+2024-10-19 01:37:57,732 - root - INFO - save model ./saved_models/DTFormer/test/DTFormer_seed0/DTFormer_seed0.pkl
+2024-10-19 05:00:23,322 - root - INFO - Epoch: 6, learning rate: 0.0001, train loss: 0.6932
+2024-10-19 05:00:23,322 - root - INFO - train average_precision, 0.5076
+2024-10-19 05:00:23,322 - root - INFO - train roc_auc, 0.5006
+2024-10-19 05:00:23,323 - root - INFO - validate loss: 0.9845
+2024-10-19 05:00:23,323 - root - INFO - validate average_precision, 0.4676
+2024-10-19 05:00:23,323 - root - INFO - validate roc_auc, 0.4448
+2024-10-19 08:20:30,175 - root - INFO - Epoch: 7, learning rate: 0.0001, train loss: 0.6932
+2024-10-19 08:20:30,176 - root - INFO - train average_precision, 0.5064
+2024-10-19 08:20:30,176 - root - INFO - train roc_auc, 0.4993
+2024-10-19 08:20:30,176 - root - INFO - validate loss: 0.7229
+2024-10-19 08:20:30,176 - root - INFO - validate average_precision, 0.5286
+2024-10-19 08:20:30,177 - root - INFO - validate roc_auc, 0.5214
+2024-10-19 08:20:30,177 - root - INFO - save model ./saved_models/DTFormer/test/DTFormer_seed0/DTFormer_seed0.pkl
+2024-10-19 11:52:17,361 - root - INFO - Epoch: 8, learning rate: 0.0001, train loss: 0.6932
+2024-10-19 11:52:17,362 - root - INFO - train average_precision, 0.5062
+2024-10-19 11:52:17,362 - root - INFO - train roc_auc, 0.4992
+2024-10-19 11:52:17,362 - root - INFO - validate loss: 0.8673
+2024-10-19 11:52:17,363 - root - INFO - validate average_precision, 0.5482
+2024-10-19 11:52:17,363 - root - INFO - validate roc_auc, 0.5574
+2024-10-19 11:52:17,364 - root - INFO - save model ./saved_models/DTFormer/test/DTFormer_seed0/DTFormer_seed0.pkl

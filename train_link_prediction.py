@@ -43,12 +43,15 @@ if __name__ == "__main__":
                           'reddit-body': 178,
                           'reddit-title': 178,
                           'mathoverflow': 2350,
-                          'email-Eu-core': 803}
+                          'email-Eu-core': 803,
+                          'test':3}
 
     # get data for training, validation and testing
     node_raw_features, edge_raw_features, full_data, train_data, val_data, test_data, _, _, node_snap_counts = \
         get_link_prediction_data(dataset_name=args.dataset_name, val_ratio=args.val_ratio, test_ratio=args.test_ratio,
                                  num_snapshots=data_snapshots_num[args.dataset_name])
+    node_raw_features = node_raw_features.astype(np.float32)
+    edge_raw_features = edge_raw_features.astype(np.float32)
 
     # initialize training neighbor sampler to retrieve temporal graph
     train_neighbor_sampler = get_neighbor_sampler(data=train_data,
@@ -70,6 +73,7 @@ if __name__ == "__main__":
                                                 dst_node_ids=full_data.dst_node_ids, seed=2)
 
     # get data loaders
+
     train_idx_data_loader = get_idx_data_loader(indices_list=list(range(len(train_data.src_node_ids))),
                                                 batch_size=args.batch_size, shuffle=False)
     val_idx_data_loader = get_idx_data_loader(indices_list=list(range(len(val_data.src_node_ids))),
@@ -226,6 +230,8 @@ if __name__ == "__main__":
 
             if early_stop:
                 break
+            torch.cuda.empty_cache()
+
 
         # load the best model
         early_stopping.load_checkpoint(model)

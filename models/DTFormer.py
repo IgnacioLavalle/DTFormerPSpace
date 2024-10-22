@@ -102,6 +102,10 @@ class DTFormer(nn.Module):
 
     def compute_src_dst_node_temporal_embeddings(self, src_node_ids: np.ndarray, dst_node_ids: np.ndarray,
                                                  node_interact_times: np.ndarray, snapshots: np.ndarray):
+
+        print("Unique source nodes:", src_node_ids)
+        print("Unique destination nodes:", dst_node_ids)
+
         # get the first-hop neighbors of source and destination nodes
         # three lists to store source nodes' first-hop neighbor ids, edge ids and interaction timestamp information, with batch_size as the list length
         src_nodes_neighbor_ids_list, src_nodes_edge_ids_list, src_nodes_neighbor_times_list, src_nodes_neighbor_snapshots_list = \
@@ -357,7 +361,10 @@ class DTFormer(nn.Module):
         padded_nodes_edge_raw_features = self.edge_raw_features[torch.from_numpy(padded_nodes_edge_ids)]
 
         # Tensor, shape (batch_size, max_seq_length, num_snapshots)
+        #Modificacion
         padded_nodes_neighbor_node_snap_counts = self.node_snap_counts[torch.from_numpy(padded_nodes_neighbor_ids)]
+        
+
 
         batch_size = padded_nodes_neighbor_node_snap_counts.shape[0]
         max_seq_length = padded_nodes_neighbor_node_snap_counts.shape[1]
