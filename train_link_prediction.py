@@ -44,7 +44,10 @@ if __name__ == "__main__":
                           'reddit-title': 178,
                           'mathoverflow': 2350,
                           'email-Eu-core': 803,
-                          'test':3}
+                          'test':3,
+                          'FMP22to12':11,
+                          'FMP22to18':5
+                          }
 
     # get data for training, validation and testing
     node_raw_features, edge_raw_features, full_data, train_data, val_data, test_data, _, _, node_snap_counts = \
