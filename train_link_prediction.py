@@ -45,7 +45,7 @@ if __name__ == "__main__":
                           'mathoverflow': 2350,
                           'email-Eu-core': 803,
                           'test':3,
-                          'FMP22to12':11,
+                          'SMP22to12':11,
                           'FMP22to18':5
                           }
 
